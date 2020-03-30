@@ -182,7 +182,7 @@ class Edit_User extends \NDB_Form
      */
     function _process($values)
     {
-        $config = \NDB_Config::singleton();
+        $config  = \NDB_Config::singleton();
         $factory = \NDB_Factory::singleton();
         $DB      = $factory->database();
         //The arrays that contain the edited permissions
@@ -745,7 +745,7 @@ class Edit_User extends \NDB_Form
         }
 
         //------------------------------------------------------------
-        
+
         // get user permissions
         $factory     = \NDB_Factory::singleton();
         $editor      = $factory->user();
@@ -1020,7 +1020,7 @@ class Edit_User extends \NDB_Form
         $factory = \NDB_Factory::singleton();
         $editor  = $factory->user();
         // create DB object
-        $DB      = $factory->database();
+        $DB = $factory->database();
 
         $errors = array();
 

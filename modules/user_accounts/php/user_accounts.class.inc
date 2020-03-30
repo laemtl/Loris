@@ -48,7 +48,7 @@ class User_Accounts extends \NDB_Menu_Filter
     function _setupVariables()
     {
         $factory = \NDB_Factory::singleton();
-        $user =& $factory->user();
+        $user    =& $factory->user();
         // the base query
         $query = " FROM users
             LEFT JOIN user_psc_rel ON (user_psc_rel.UserID=users.ID)
@@ -106,8 +106,8 @@ class User_Accounts extends \NDB_Menu_Filter
 
         // create user object
         $factory = \NDB_Factory::singleton();
-        $user =& $factory->user();
-        
+        $user    =& $factory->user();
+
         // PSC
         if ($user->hasPermission('user_accounts_multisite')) {
             // get the list of study sites - to be replaced by the Site object

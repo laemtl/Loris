@@ -424,7 +424,7 @@ function notify($pubID, $type) : void
     $factory   = \NDB_Factory::singleton();
     $db        = $factory->database();
     $config    = \NDB_Config::singleton();
-    $user      = $factory->user();    
+    $user      = $factory->user();
     $emailData = array();
 
     $data = $db->pselectRow(
@@ -483,8 +483,8 @@ function editProject() : void
 
     if (isset($id)) {
         // double check that current user has edit access
-        $factory = \NDB_Factory::singleton();
-        $user    = $factory->user();
+        $factory     = \NDB_Factory::singleton();
+        $user        = $factory->user();
         $creatorUser = $db->pselectOne(
             'SELECT UserID FROM publication WHERE PublicationID=:id',
             array('id' => $id)

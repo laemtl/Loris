@@ -61,7 +61,7 @@ class Publication extends \NDB_Menu_Filter_Form
     {
         $factory = \NDB_Factory::singleton();
         $user    = $factory->user();
-        $query = " FROM publication p ".
+        $query   = " FROM publication p ".
             "LEFT JOIN publication_status ps ".
             "ON ps.PublicationStatusID=p.PublicationStatusID ".
             "LEFT JOIN publication_parameter_type_rel pptr ".

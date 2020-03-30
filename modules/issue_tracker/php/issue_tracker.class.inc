@@ -58,7 +58,7 @@ class Issue_Tracker extends \NDB_Menu_Filter_Form
 
         $factory = \NDB_Factory::singleton();
         $user    = $factory->user();
-        
+
         if ($user->hasPermission('access_all_profiles') === false) {
             $provisioner = $provisioner->filter(
                 new \LORIS\Data\Filters\UserSiteMatch()
@@ -79,7 +79,7 @@ class Issue_Tracker extends \NDB_Menu_Filter_Form
         $factory = \NDB_Factory::singleton();
         $user    = $factory->user();
         $db      = $factory->database();
-    
+
         //sites
         $sites = array();
         if ($user->hasPermission('access_all_profiles')) {

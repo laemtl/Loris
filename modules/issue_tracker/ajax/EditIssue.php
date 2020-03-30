@@ -53,7 +53,7 @@ function editIssue()
     $factory = \NDB_Factory::singleton();
     $db      =& $factory->database();
     $user    =& $factory->user();
-    
+
     $issueValues    = array();
     $validateValues = array();
     $fields         = array(
@@ -343,7 +343,7 @@ function updateHistory($values, $issueID)
     $factory =  \NDB_Factory::singleton();
     $user    =& $factory->user();
     $db      =& $factory->database();
-    
+
     foreach ($values as $key => $value) {
         if (!empty($value)) {
             $changedValues = [
@@ -398,7 +398,7 @@ function updateCommentHistory($issueCommentID, $newCommentValue)
     $factory =  \NDB_Factory::singleton();
     $user    =& $factory->user();
     $db      =& $factory->database();
-    
+
     $changedValue = array(
         'issueCommentID' => $issueCommentID,
         'newValue'       => $newCommentValue,
@@ -577,7 +577,7 @@ function getIssueFields()
     $factory =  \NDB_Factory::singleton();
     $db      =& $factory->database();
     $user    =& $factory->user();
-    $sites = array();
+    $sites   = array();
 
     //get field options
     if ($user->hasPermission('access_all_profiles')) {
@@ -753,7 +753,7 @@ function getIssueData($issueID=null)
     $factory = \NDB_Factory::singleton();
     $user    = $factory->user();
     $db      = $factory->database();
-    
+
     if (!empty($issueID)) {
         return $db->pselectRow(
             "SELECT i.*, c.PSCID, s.Visit_label as visitLabel FROM issues as i " .
