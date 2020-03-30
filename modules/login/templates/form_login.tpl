@@ -16,7 +16,13 @@
               <input type="text" name="username" class="form-control" placeholder="Username" value="{$username}"/>
             </div>
             <div class="form-group">
-              <input type="password" name="password" class="form-control" placeholder="Password" aria-describedby="helpBlock" />
+              <div class="pwd-container">
+                <input type="password" name="password" class="form-control" id="pwd-input" placeholder="Password" aria-describedby="helpBlock" />
+                <button class="btn btn-link" type="button" onclick="togglePwd()">
+                  <i id="pwd-icon" class="glyphicon glyphicon-eye-open"></i>
+                </button>
+              </div>
+              <div id="pwd"></div>
               {if $error_message}
                 <span id="helpBlock" class="help-block">
                     <b class="text-danger">{$error_message}</b>
@@ -51,3 +57,20 @@
     </section>
   </div>
 </div>
+
+<script>
+function togglePwd() {
+  var pwdInput = document.getElementById("pwd-input");
+  var pwdIcon = document.getElementById("pwd-icon");
+  
+  if (pwdInput.type === "password") {
+    pwdIcon.classList.remove("glyphicon-eye-open");
+    pwdIcon.classList.add("glyphicon-eye-close");
+    pwdInput.type = "text";
+  } else {
+    pwdIcon.classList.remove("glyphicon-eye-close");
+    pwdIcon.classList.add("glyphicon-eye-open");
+    pwdInput.type = "password";
+  }
+}
+</script>
