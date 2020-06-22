@@ -572,7 +572,10 @@ class BuildPane extends Component {
           draggable = {draggable}
         />
         <div className='row'>
-          <AddElement updateQuestions={this.addQuestion} addPage={this.addPage}/>
+          <AddElement
+            updateQuestions={this.addQuestion}
+            addPage={this.addPage}
+          />
         </div>
       </TabPane>
     );
@@ -598,7 +601,10 @@ class InstrumentBuilderApp extends Component {
   saveInstrument() {
     // Call to external function, passing it the save information and the elements
     // to save
-    Instrument.save(this.refs.savePane.state, this.refs.buildPane.state.Elements);
+    Instrument.save(
+      this.refs.savePane.state,
+      this.refs.buildPane.state.Elements
+    );
   }
   // Load an instrument
   loadCallback(elements, info) {

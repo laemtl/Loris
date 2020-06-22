@@ -170,9 +170,11 @@ class ImagingUploader extends Component {
              row['Number Of MINC Created'] - row['Number Of MINC Inserted'];
 
         let patientName = row.PatientName;
-        violatedScans = <a onClick={this.openViolatedScans.bind(null, patientName)}>
+        violatedScans = <a
+          onClick={this.openViolatedScans.bind(null, patientName)}
+        >
            ({numViolatedScans} violated scans)
-         </a>;
+        </a>;
       }
 
       return (
@@ -247,7 +249,9 @@ class ImagingUploader extends Component {
             form={this.state.data.form}
             mriList={this.state.data.mriList}
             maxUploadSize={this.state.data.maxUploadSize}
-            imagingUploaderAutoLaunch={this.state.data.imagingUploaderAutoLaunch}
+            imagingUploaderAutoLaunch={
+              this.state.data.imagingUploaderAutoLaunch
+            }
           />
         </TabPane>
       </Tabs>

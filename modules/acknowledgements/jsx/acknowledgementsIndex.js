@@ -312,7 +312,8 @@ class AcknowledgementsIndex extends Component {
             label='End date'
             value={this.state.formData.addEndDate}
             maxYear={this.state.data.maxYear}
-            minYear={this.state.formData.addStartDate || this.state.data.minYear}
+            minYear={this.state.formData.addStartDate
+                    || this.state.data.minYear}
             disabled={disableEndDate}
             required={requireEndDate}
             onUserInput={this.setFormData}

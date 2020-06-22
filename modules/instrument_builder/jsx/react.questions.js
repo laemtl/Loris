@@ -609,7 +609,10 @@ class AddElement extends Component {
     if (this.props !== undefined && this.props.element) {
       // Editing an element, set to elements state
       this.state = {
-        Options: Instrument.clone(this.props.element.Options === undefined ? {} : this.props.element.Options ),
+        Options: Instrument.clone(this.props.element.Options === undefined ?
+          {} :
+          this.props.element.Options
+        ),
         Description: Instrument.clone(this.props.element.Description),
         Name: Instrument.clone(this.props.element.Name === undefined ? '' : this.props.element.Name),
         selected: Instrument.clone(this.props.element.selected),
@@ -679,7 +682,11 @@ class AddElement extends Component {
         });
         hasError = true;
       }
-      if (minYear > 9999 || minYear < 1000 || maxYear > 9999 || maxYear < 1000) {
+      if (minYear > 9999
+        || minYear < 1000
+        || maxYear > 9999
+        || maxYear < 1000
+      ) {
         let temp = (this.state.error) ? this.state.error : {};
 
         temp.dateOption = 'The year must have exactly 4 digits. Please choose an integer number between 1000 and 9999.';
@@ -854,25 +861,44 @@ class AddElement extends Component {
     switch (this.state.selected.id) {
       case 'header':
       case 'label':
-        questionInput = <QuestionText updateState={this.updateState} element={this.state}/>;
+        questionInput = <QuestionText
+          updateState={this.updateState}
+          element={this.state}
+        />;
         break;
       case 'page-break':
-        questionInput = <QuestionText updateState={this.updateState} element={this.state} inputLabel={'Page Name'}/>;
+        questionInput = <QuestionText
+          updateState={this.updateState}
+          element={this.state}
+          inputLabel={'Page Name'}
+        />;
         break;
       case 'score':
       case 'textbox':
       case 'textarea':
-        questionInput = <BasicOptions updateState={this.updateState} element={this.state}/>;
+        questionInput = <BasicOptions
+          updateState={this.updateState}
+          element={this.state}
+        />;
         break;
       case 'multiselect':
       case 'dropdown':
-        questionInput = <DropdownOptions updateState={this.updateState} element={this.state}/>;
+        questionInput = <DropdownOptions
+          updateState={this.updateState}
+          element={this.state}
+        />;
         break;
       case 'date':
-        questionInput = <DateOptions updateState={this.updateState} element={this.state}/>;
+        questionInput = <DateOptions
+          updateState={this.updateState}
+          element={this.state}
+        />;
         break;
       case 'numeric':
-        questionInput = <NumericOptions updateState={this.updateState} element={this.state}/>;
+        questionInput = <NumericOptions
+          updateState={this.updateState}
+          element={this.state}
+        />;
         break;
       default:
         break;

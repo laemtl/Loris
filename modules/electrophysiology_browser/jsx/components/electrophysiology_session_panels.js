@@ -162,34 +162,50 @@ class FilePanel extends Component {
           <div className={'row'}>
             <div className={'col-sm-6'} style={stylesFile.div.container.table}>
               <table style={stylesFile.table.style}>
-                <caption style={stylesFile.table.caption}>Acquisition Summary</caption>
+                <caption style={stylesFile.table.caption}>
+                  Acquisition Summary
+                </caption>
                 <tr style={stylesFile.table.row}>
                   <th scope='row' style={stylesFile.table.header}>Sampling Frequency</th>
-                  <td style={stylesFile.table.data}>{this.state.data.task.frequency.sampling}</td>
+                  <td style={stylesFile.table.data}>
+                    {this.state.data.task.frequency.sampling}
+                  </td>
                 </tr>
                 <tr style={stylesFile.table.row}>
                   <th scope='row' style={stylesFile.table.header}>{this.state.data.task.channel[0].name}</th>
-                  <td style={stylesFile.table.data}>{this.state.data.task.channel[0].value}</td>
+                  <td style={stylesFile.table.data}>
+                    {this.state.data.task.channel[0].value}
+                  </td>
                 </tr>
                 <tr style={stylesFile.table.row}>
                   <th scope='row' style={stylesFile.table.header}>{this.state.data.task.channel[1].name}</th>
-                  <td style={stylesFile.table.data}>{this.state.data.task.channel[1].value}</td>
+                  <td style={stylesFile.table.data}>
+                    {this.state.data.task.channel[1].value}
+                  </td>
                 </tr>
                 <tr style={stylesFile.table.row}>
                   <th scope='row' style={stylesFile.table.header}>{this.state.data.task.channel[2].name}</th>
-                  <td style={stylesFile.table.data}>{this.state.data.task.channel[2].value}</td>
+                  <td style={stylesFile.table.data}>
+                    {this.state.data.task.channel[2].value}
+                  </td>
                 </tr>
                 <tr style={stylesFile.table.row}>
                   <th scope='row' style={stylesFile.table.header}>{this.state.data.task.channel[3].name}</th>
-                  <td style={stylesFile.table.data}>{this.state.data.task.channel[3].value}</td>
+                  <td style={stylesFile.table.data}>
+                    {this.state.data.task.channel[3].value}
+                  </td>
                 </tr>
                 <tr style={stylesFile.table.row}>
                   <th scope='row' style={stylesFile.table.header}>EEG Reference</th>
-                  <td style={stylesFile.table.data}>{this.state.data.task.reference}</td>
+                  <td style={stylesFile.table.data}>
+                    {this.state.data.task.reference}
+                  </td>
                 </tr>
                 <tr style={stylesFile.table.row}>
                   <th scope='row' style={stylesFile.table.header}>Powerline Frequency</th>
-                  <td style={stylesFile.table.data}>{this.state.data.task.frequency.powerline}</td>
+                  <td style={stylesFile.table.data}>
+                    {this.state.data.task.frequency.powerline}
+                  </td>
                 </tr>
               </table>
             </div>
@@ -254,43 +270,63 @@ class FilePanel extends Component {
                   <table style={stylesDetails.table.style}>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Task Description</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.task.description}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.task.description}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Instructions</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.instructions}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.instructions}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>EEG Ground</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.eeg.ground}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.eeg.ground}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Trigger Count</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.trigger_count}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.trigger_count}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>EEG Placement Scheme</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.eeg.placement_scheme}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.eeg.placement_scheme}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Record Type</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.record_type}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.record_type}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>CogAtlas ID</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.cog.atlas_id}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.cog.atlas_id}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>CogPOID</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.cog.poid}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.cog.poid}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Institution Name</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.institution.name}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.institution.name}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Institution Address</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.institution.address}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.institution.address}
+                      </td>
                     </tr>
                   </table>
                 </div>
@@ -301,47 +337,69 @@ class FilePanel extends Component {
                   <table style={stylesDetails.table.style}>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Device Serial Number</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.device.serial_number}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.device.serial_number}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Misc Channel Count</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.misc.channel_count}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.misc.channel_count}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Manufacturer</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.manufacturer.name}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.manufacturer.name}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Manufacturer Model Name</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.manufacturer.model_name}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.manufacturer.model_name}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Cap Manufacturer</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.cap.manufacturer}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.cap.manufacturer}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Cap Model Name</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.cap.model_name}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.cap.model_name}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Hardware Filters</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.hardware_filters}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.hardware_filters}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Recording Duration</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.recording_duration}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.recording_duration}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Epoch Length</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.epoch_length}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.epoch_length}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Device Version</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.device.version}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.device.version}
+                      </td>
                     </tr>
                     <tr style={stylesDetails.table.row}>
                       <th scope='row' style={stylesDetails.table.header}>Subject Artifact Description</th>
-                      <td style={stylesDetails.table.data}>{this.state.data.details.subject_artifact_description}</td>
+                      <td style={stylesDetails.table.data}>
+                        {this.state.data.details.subject_artifact_description}
+                      </td>
                     </tr>
                   </table>
                 </div>

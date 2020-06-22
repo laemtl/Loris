@@ -308,7 +308,11 @@ class UploadForm extends Component {
           text: messageToPrint,
           type: 'error',
         });
-        this.setState({uploadProgress: -1, errorMessage: errorMessage, hasError: hasError});
+        this.setState({
+          uploadProgress: -1,
+          errorMessage: errorMessage,
+          hasError: hasError,
+        });
       },
     });
   }
