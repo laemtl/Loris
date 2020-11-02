@@ -9,6 +9,7 @@ VERSION: .
 
 phpdev:
 	composer install
+	composer self-update --rollback
 
 javascript:
 	npm install
