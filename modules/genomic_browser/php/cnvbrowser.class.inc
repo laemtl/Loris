@@ -3,6 +3,7 @@
 namespace LORIS\genomic_browser;
 
 use LORIS\Data\Filters\HasAnyPermissionOrUserSiteMatch;
+use LORIS\Data\Filters\UserProjectMatch;
 use LORIS\genomic_browser\Provisioners\CnvProvisioner;
 use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
@@ -53,19 +54,21 @@ class CnvBrowser extends \NDB_Page implements ETagCalculator
      */
     private function _handleGET(ServerRequestInterface $request) : ResponseInterface
     {
-        $filter      = new HasAnyPermissionOrUserSiteMatch(
+        $sitesFilter = new HasAnyPermissionOrUserSiteMatch(
             ['genomic_browser_view_allsites']
         );
-        $provisioner = (new CnvProvisioner())->filter($filter);
-        $user        = $request->getAttribute('user');
+        $provisioner = (new CnvProvisioner())
+            ->filter($sitesFilter)
+            ->filter(new UserProjectMatch());
+
+        $user = $request->getAttribute('user');
 
         $data = (new \LORIS\Data\Table())
             ->withDataFrom($provisioner)
             ->toArray($user);
         $body = [
             'data'         => $data,
-            'fieldOptions' => $this->_getFieldOptions($request),
-            'subprojects'  => \Utility::getSubprojectList(),
+            'fieldOptions' => $this->_getFieldOptions(),
         ];
         return new \LORIS\Http\Response\JsonResponse($body);
     }
@@ -73,19 +76,10 @@ class CnvBrowser extends \NDB_Page implements ETagCalculator
     /**
      * Provide the select inputs options
      *
-     * @param ServerRequestInterface $request The incoming PSR7 request.
-     *
      * @return array Dynamic field options
      */
-    private function _getFieldOptions(
-        ServerRequestInterface $request
-    ) : array {
-        $user = $request->getAttribute('user');
-        // centerID
-        $list_of_sites = $user->hasPermission('genomic_browser_view_allsites')
-            ? \Utility::getSiteList()
-            : $user->getStudySites();
-        $list_of_sites = array_combine($list_of_sites, $list_of_sites);
+    private function _getFieldOptions() : array
+    {
         // Platform
         $DB = \Database::singleton();
         $platform_results = $DB->pselect(
@@ -100,8 +94,8 @@ class CnvBrowser extends \NDB_Page implements ETagCalculator
 
         return (new \LORIS\genomic_browser\Views\CNV(
             $platform_options,
-            \Utility::getSubprojectList(),
-            $list_of_sites
+            $this->getSiteOptions(false, ['genomic_browser_view_allsites']),
+            $this->getSubprojectOptions(),
         ))->toArray();
     }
 

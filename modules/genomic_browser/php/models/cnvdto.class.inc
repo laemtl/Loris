@@ -1,14 +1,5 @@
-<?php declare(strict_types=1);
-/**
- * PHP version 7
- *
- * @category Genomic_Browser
- * @package  Main
- * @author   Xavier Lecours <xavier.lecours@mcin.ca>
- *           Alizée Wickenheiser <alizee.wickenheiser@mcin.ca>
- * @license  http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
- * @link     https://github.com/aces/Loris-Trunk
- */
+<?php
+declare(strict_types=1);
 
 namespace LORIS\genomic_browser\Models;
 
@@ -29,6 +20,20 @@ namespace LORIS\genomic_browser\Models;
  */
 class CnvDTO implements \LORIS\Data\DataInstance
 {
+    /**
+     * The centerID
+     *
+     * @var string
+     */
+    private $_centerID = "";
+
+    /**
+     * The projectID
+     *
+     * @var string
+     */
+    private $_projectID = "";
+
     /**
      * The PSC
      *
@@ -239,14 +244,24 @@ class CnvDTO implements \LORIS\Data\DataInstance
             'Platform'          => $this->_Platform,
         ];
     }
+
     /**
-     * Returns the CenterID for this row, for filters such as
-     * \LORIS\Data\Filters\UserSiteMatch to match again.
+     * Returns the CenterID for this row
      *
-     * @return string
+     * @return integer The CenterID
      */
-    public function getPSC(): string
+    public function getCenterID(): int
     {
-        return (string) $this->psc;
+        return (int) $this->_centerID;
+    }
+
+    /**
+     * Returns the ProjectID for this row
+     *
+     * @return integer The ProjectID
+     */
+    public function getProjectID(): int
+    {
+        return (int) $this->_projectID;
     }
 }
