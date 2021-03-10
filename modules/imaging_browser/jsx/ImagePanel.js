@@ -23,6 +23,7 @@ class ImagePanelHeader extends Component {
    * Called by React when the component has been rendered on the page.
    */
   componentDidMount() {
+    // eslint-disable-next-line no-jquery/no-jquery-constructor, no-jquery/no-other-methods
     $('.panel-title').tooltip();
   }
 
@@ -123,6 +124,7 @@ class ImagePanelHeadersTable extends Component {
    * Called by React when the component has been rendered on the page.
    */
   componentDidMount() {
+    // eslint-disable-next-line no-jquery/no-jquery-constructor, no-jquery/no-other-methods
     $(ReactDOM.findDOMNode(this)).DynamicTable();
   }
 
@@ -131,6 +133,7 @@ class ImagePanelHeadersTable extends Component {
    */
   componentWillUnmount() {
     // Remove wrapper nodes so React is able to remove component
+    // eslint-disable-next-line no-jquery/no-jquery-constructor, no-jquery/no-other-methods
     $(ReactDOM.findDOMNode(this)).DynamicTable({
       removeDynamicTable: true,
     });
