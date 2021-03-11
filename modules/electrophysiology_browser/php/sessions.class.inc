@@ -468,6 +468,26 @@ class Sessions extends \NDB_Page
     }
 
     /**
+     * Get CSS Dependencies
+     *
+     * @return array
+     */
+    function getCSSDependencies()
+    {
+        $depends = parent::getCSSDependencies();
+        $factory = \NDB_Factory::singleton();
+        $baseurl = $factory->settings()->getBaseURL();
+        $depends = array_merge(
+            $depends,
+            [
+                $baseurl
+                . '/electrophysiology_browser/css/electrophysiology_browser.css',
+            ]
+        );
+        return $depends;
+    }
+
+    /**
      * Generate a breadcrumb trail for this page.
      *
      * @return \LORIS\BreadcrumbTrail

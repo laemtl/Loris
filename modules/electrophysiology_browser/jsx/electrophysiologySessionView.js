@@ -11,8 +11,14 @@ import PropTypes from 'prop-types';
 
 import StaticDataTable from 'jsx/StaticDataTable';
 import {FilePanel} from './components/electrophysiology_session_panels';
+import {DownloadPanel} from './components/DownloadPanel';
 import Sidebar from './components/Sidebar';
 import SidebarContent from './components/SidebarContent';
+import {EEGLabSeriesProvider} from './react-series-data-viewer/src/eeglab';
+import SeriesRenderer
+  from './react-series-data-viewer/src/series/components/SeriesRenderer';
+import EEGMontage
+  from './react-series-data-viewer/src/series/components/EEGMontage';
 
 /**
  * Electrophysiology Session View page
@@ -146,6 +152,9 @@ class ElectrophysiologySessionView extends Component {
               },
             ],
           },
+          chunkDirectoryURL: null,
+          epochsTableURL: null,
+          electrodesTableUrls: null,
         },
       ],
     };
@@ -192,16 +201,39 @@ class ElectrophysiologySessionView extends Component {
         }
         return resp.json();
       })
-      .then((data) => this.getState((appState) => {
-        appState.setup = {data};
-        appState.isLoaded = true;
-        appState.patient.info = data.patient;
-        let database = [];
-        for (let i = 0; i < data.database.length; i++) {
-          database.push(data.database[i]);
-        }
-        appState.database = database;
-        this.setState(appState);
+      .then((data) => {
+        const database = data.database.map((dbEntry) => ({
+          ...dbEntry,
+          // EEG Visualisation urls
+          chunkDirectoryURL:
+            dbEntry
+            && dbEntry.file.chunks_url
+            && window.location.origin
+               + '/mri/jiv/get_file.php?file='
+               + dbEntry.file.chunks_url,
+          epochsTableURL:
+            dbEntry
+            && dbEntry.file.downloads[3].file
+            && window.location.origin
+               + '/mri/jiv/get_file.php?file='
+               + dbEntry.file.downloads[3].file,
+          electrodesTableUrls:
+            dbEntry
+            && dbEntry.file.downloads[1].file
+            && window.location.origin
+               + '/mri/jiv/get_file.php?file='
+               + dbEntry.file.downloads[1].file,
+        }));
+
+        this.setState({
+            setup: {data},
+            isLoaded: true,
+            database: database,
+            patient: {
+                info: data.patient,
+            },
+        });
+
         document.getElementById(
           'nav_next'
         ).href = dataURL + data.nextSession + outputTypeArg;
@@ -214,7 +246,7 @@ class ElectrophysiologySessionView extends Component {
         if (data.nextSession !== '') {
           document.getElementById('nav_next').style.display = 'block';
         }
-      }))
+      })
       .catch((error) => {
         this.setState({error: true});
         console.error(error);
@@ -252,13 +284,36 @@ class ElectrophysiologySessionView extends Component {
     if (this.state.isLoaded) {
       let database = [];
       for (let i = 0; i < this.state.database.length; i++) {
+        const {
+          chunkDirectoryURL,
+          epochsTableURL,
+          electrodesTableUrls,
+        } = this.state.database[i];
         database.push(
-          <div>
+          <div key="0">
             <FilePanel
               id={'filename_panel_' + i}
               title={this.state.database[i].file.name}
               data={this.state.database[i].file}
-            />
+            >
+              <div className="react-series-data-viewer-scoped col-xs-12">
+                <EEGLabSeriesProvider
+                  chunkDirectoryURLs={chunkDirectoryURL}
+                  epochsTableURLs={epochsTableURL}
+                  electrodesTableUrls={electrodesTableUrls}
+                >
+                  <SeriesRenderer />
+                  <div className='row'>
+                    <div className='col-sm-6'>
+                      <DownloadPanel data={this.state.database[i].file} />
+                    </div>
+                    <div className='col-sm-6'>
+                      <EEGMontage />
+                    </div>
+                  </div>
+                </EEGLabSeriesProvider>
+              </div>
+            </FilePanel>
           </div>
         );
       }
@@ -291,9 +346,7 @@ class ElectrophysiologySessionView extends Component {
             freezeColumn='PSCID'
             Hide={{rowsPerPage: true, downloadCSV: true, defaultColumn: true}}
           />
-
           {database}
-
         </div>
       );
     }
