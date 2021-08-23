@@ -268,7 +268,7 @@ function getUploadFields()
         $qparam
     );
 
-    $instrumentsList = toSelect($sessionRecords, "Full_name", "Test_name");
+    $instrumentsList = toSelect($sessionRecords, "Test_name", null);
     $candidatesList  = toSelect($sessionRecords, "PSCID", null);
     $visitList       = Utility::getVisitList();
     $languageList    = Utility::getLanguageList();
@@ -310,8 +310,24 @@ function getUploadFields()
                 true
             )
         ) {
+            try {
+                $instrumentName = NDB_BVL_Instrument::factory(
+                    new \LORIS\LorisInstance(
+                        $db,
+                        $config,
+                        [
+                            __DIR__ . "/../../../project/modules",
+                            __DIR__ . "/../../",
+                        ],
+                    ),
+                    $record["Test_name"]
+                )->getFullname();
+            } catch (Exception $e){
+                $instrumentName = $record["Full_name"];
+            }
+
             $sessionData[$pscid]['instruments'][$visit][$record["Test_name"]]
-                = $record["Full_name"];
+                = $instrumentName;
             if (!in_array(
                 $record["Test_name"],
                 $sessionData[$pscid]['instruments']['all'],
@@ -319,11 +335,9 @@ function getUploadFields()
             )
             ) {
                 $sessionData[$pscid]['instruments']['all'][$record["Test_name"]]
-                    = $record["Full_name"];
+                    = $instrumentName;
             }
-
         }
-
     }
 
     // Build media data to be displayed when editing a media file
