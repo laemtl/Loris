@@ -29,7 +29,7 @@ class Project
      *
      * @var \Project
      */
-    protected $_project;
+    private $_project;
 
     /**
      * Constructor
@@ -55,7 +55,7 @@ class Project
             'Meta'        => $meta,
             'Candidates'  => $this->_project->getCandidateIds(),
             'Instruments' => array_keys(\Utility::getAllInstruments()),
-            'Visits'      => $this->getVisits(),
+            'Visits'      => $this->_getVisits(),
         ];
     }
 
@@ -87,7 +87,7 @@ class Project
 
         return [
             'Meta'   => $meta,
-            'Visits' => $this->getVisits(),
+            'Visits' => $this->_getVisits(),
         ];
     }
 
@@ -96,7 +96,7 @@ class Project
      *
      * @return array
      */
-    protected function getVisits(): array
+    private function _getVisits(): array
     {
         // TODO :: This should be replaced by $this->_project->getVisitLabels();
         return array_keys(
