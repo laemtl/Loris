@@ -20,8 +20,25 @@ namespace LORIS\api\Views;
  * @link     https://www.github.com/aces/Loris/
  */
 
-class Project_0_0_4_Dev extends Project
+class Project_0_0_4_Dev
 {
+    /**
+     * The project to format
+     *
+     * @var \Project
+     */
+    protected $_project;
+
+    /**
+     * Constructor
+     *
+     * @param \Project $project The project to format
+     */
+    public function __construct(\Project $project)
+    {
+        $this->_project = $project;
+    }
+
     /**
      * Produce an array representation of this project.
      *
@@ -29,18 +46,18 @@ class Project_0_0_4_Dev extends Project
      */
     public function toArray(): array
     {
-        $meta = ['Project' => $this->_project->getName()];
+        $name = $this->_project->getName();
 
         return [
-            'Meta'        => $meta,
-            'Subprojects' => array_values(
-                \Utility::getSubprojectList(
-                    $this->_project->getId()
-                )
-            ),
-            'Candidates'  => $this->_project->getCandidateIds(),
-            'Instruments' => array_keys(\Utility::getAllInstruments()),
-            'Visits'      => $this->getVisits(),
+            'Id'                 => $this->_project->getId(),
+            'Name'               => $this->_project->getName(),
+            'Alias'              => $this->_project->getAlias(),
+            'RecruitementTarget' => $this->_project->getRecruitmentTarget(),
+            'Links'              => [
+                'Candidates'  => "/projects/$name/candidates",
+                'Instruments' => "/projects/$name/instruments",
+                'Subprojects' => "/projects/$name/subprojects"
+            ]
         ];
     }
 }

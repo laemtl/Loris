@@ -1,23 +1,22 @@
 <?php declare(strict_types=1);
 /**
- * This implements the Project page class under Projects
+ * This implements the Subproject page class under Subprojects
  *
  * PHP Version 7
  *
  * @category API
  * @package  Loris
- * @author   Xavier Lecours Boucher <xavier.lecours@mcin.ca>
  * @license  http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
  * @link     https://github.com/aces/Loris
  */
-namespace LORIS\api\Endpoints\Project;
+namespace LORIS\api\Endpoints\Subproject;
 
 use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 use \LORIS\api\Endpoint;
 
 /**
- * A class for handling the /projects/$projectname endpoint.
+ * A class for handling the /subprojects/$subprojectname endpoint.
  *
  * @category API
  * @package  Loris
@@ -25,27 +24,27 @@ use \LORIS\api\Endpoint;
  * @license  http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
  * @link     https://github.com/aces/Loris
  */
-class Project extends Endpoint implements \LORIS\Middleware\ETagCalculator
+class Subproject extends Endpoint implements \LORIS\Middleware\ETagCalculator
 {
     /**
-     * A cache of the results of the projects/$projectname endpoint, so that
+     * A cache of the results of the subprojects/$subprojectname endpoint, so that
      * it doesn't need to be recalculated for the ETag and handler
      */
     private $_cache;
 
     /**
-     * The requested project
+     * The requested subproject
      */
-    private $_project;
+    private $_subproject;
 
     /**
      * Contructor
      *
-     * @param \Project $project The requested project
+     * @param string $subproject The requested subproject
      */
-    public function __construct(\Project $project)
+    public function __construct(string $subproject)
     {
-        $this->_project = $project;
+        $this->_subproject = $subproject;
     }
 
     /**
@@ -67,13 +66,12 @@ class Project extends Endpoint implements \LORIS\Middleware\ETagCalculator
     protected function supportedVersions() : array
     {
         return [
-            'v0.0.3',
             'v0.0.4-dev',
         ];
     }
 
     /**
-     * Handles a request that starts with /projects/$projectname
+     * Handles a request that starts with /subprojects/$subprojectname
      *
      * @param ServerRequestInterface $request The incoming PSR7 request
      *
@@ -97,65 +95,25 @@ class Project extends Endpoint implements \LORIS\Middleware\ETagCalculator
                 );
             }
         }
-
-        // Delegate to sub-endpoints
-        $subendpoint = array_shift($pathparts);
-        switch($subendpoint) {
-        case 'candidates':
-            $handler = new Candidates($this->_project);
-            break;
-        case 'images':
-            $handler = new Images($this->_project);
-            break;
-        case 'instruments':
-            $handler = new Instruments($this->_project);
-            break;
-        case 'subprojects':
-            $handler = new Subprojects($this->_project);
-            break;
-        case 'visits':
-            $handler = new Visits($this->_project);
-            break;
-        case 'recordings':
-            $handler = new Recordings($this->_project);
-            break;
-        default:
-            return new \LORIS\Http\Response\JSON\NotFound();
-        }
-
-        $newrequest = $request
-            ->withAttribute('pathparts', $pathparts);
-
-        return $handler->process(
-            $newrequest,
-            $handler
-        );
+        return new \LORIS\Http\Response\JSON\NotFound();
     }
 
     /**
-     * Generates a JSON representation of this project following the API
+     * Generates a JSON representation of this subproject following the API
      * specification.
      *
-     * @param ServerRequestInterface $request The incoming PSR7 request
+     * @param ServerRequestInterface $request The incoming PSR7 request @unused-param
      *
      * @return ResponseInterface
      */
-    private function _handleGET(ServerRequestInterface $request): ResponseInterface
+    private function _handleGET($request): ResponseInterface
     {
         if (isset($this->_cache)) {
             return $this->_cache;
         }
 
-        $version = $request->getAttribute('LORIS-API-Version');
-        switch($version) {
-        case "v0.0.3":
-            $view = (new \LORIS\api\Views\Project($this->_project))
-                    ->toArray();
-            break;
-        default:
-            $view = (new \LORIS\api\Views\Project_0_0_4_Dev($this->_project))
-                    ->toArray();
-        }
+        $view         = (new \LORIS\api\Views\SubProject($this->_subproject))
+                          ->toArray();
         $this->_cache = new \LORIS\Http\Response\JsonResponse($view);
 
         return $this->_cache;
@@ -164,11 +122,11 @@ class Project extends Endpoint implements \LORIS\Middleware\ETagCalculator
     /**
      * Implements the ETagCalculator interface
      *
-     * @param ServerRequestInterface $request The PSR7 incoming request.
+     * @param ServerRequestInterface $request The incoming PSR7 request
      *
      * @return string etag summarizing value of this request.
      */
-    public function ETag(ServerRequestInterface $request) : string
+    public function ETag($request) : string
     {
         return md5(json_encode($this->_handleGET($request)->getBody()));
     }
