@@ -248,6 +248,15 @@ function getUploadFields()
     $user   = \User::singleton();
     $config = \NDB_Config::singleton();
 
+    $lorisinstance = new \LORIS\LorisInstance(
+        $db,
+        $config,
+        [
+            __DIR__ . "/../../../project/modules",
+            __DIR__ . "/../../",
+        ],
+    );
+
     // Select only candidates that have had visit at user's sites
     $qparam       = [];
     $sessionQuery = "SELECT
@@ -274,6 +283,8 @@ function getUploadFields()
     $languageList    = Utility::getLanguageList();
     $startYear       = $config->getSetting('startYear');
     $endYear         = $config->getSetting('endYear');
+
+    $allInstruments = \NDB_BVL_Instrument::getInstrumentNamesList($lorisinstance);
 
     // Build array of session data to be used in upload media dropdowns
     $sessionData = [];
@@ -310,23 +321,10 @@ function getUploadFields()
                 true
             )
         ) {
-            try {
-                $instrumentName = NDB_BVL_Instrument::factory(
-                    new \LORIS\LorisInstance(
-                        $db,
-                        $config,
-                        [
-                            __DIR__ . "/../../../project/modules",
-                            __DIR__ . "/../../",
-                        ],
-                    ),
-                    $record["Test_name"]
-                )->getFullname();
-            } catch (Exception $e){
-                $instrumentName = $record["Full_name"];
-            }
+            $testname = $record["Test_name"];
+            $instrumentName = $allInstruments[$testname] ?: $testname;
 
-            $sessionData[$pscid]['instruments'][$visit][$record["Test_name"]]
+            $sessionData[$pscid]['instruments'][$visit][$testname];
                 = $instrumentName;
             if (!in_array(
                 $record["Test_name"],
