@@ -144,7 +144,6 @@ Panel.defaultProps = {
   height: '100%',
   class: 'panel-primary',
   collapsing: true,
-  panelSize: null,
 };
 
 export default Panel;
