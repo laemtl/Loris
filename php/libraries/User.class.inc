@@ -122,7 +122,7 @@ class User extends UserPermissions implements
             ['UID' => $row['ID']]
         );
 
-        $user_pid      = [];        // Array to store ProjectID objects
+        $user_pid      = [];   // Array to store ProjectID objects
         $project_names = [];   // Array to store project names
 
         foreach ($user_projects_query as $key => $val) {
